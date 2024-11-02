@@ -1,0 +1,12 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /gra
+
+reindexer-property:
+  base-url: http://127.0.0.1:9088/api/v1
+  file-path: data/
+
+reindexer-config:
+  db-name: bb
+  namespace: ss
