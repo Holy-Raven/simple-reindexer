@@ -15,8 +15,7 @@ public class Item {
     @Reindex(name = "id", isPrimaryKey = true)
     private Integer id;
 
-    @Reindex(name = "name")
-//    @Reindex(name = "name", type = IndexType.TEXT)
-//    @FullText
+    @Reindex(name = "name", type = IndexType.TEXT)
+    @FullText
     private String name;
 }

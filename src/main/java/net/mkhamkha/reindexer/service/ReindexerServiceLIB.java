@@ -86,12 +86,8 @@ public class ReindexerServiceLIB {
         // Проверяем наличие фильтра и добавляем запрос с учетом условия EQ
         Query<Item> query = reindexer.query(collectionName, Item.class);
 
-//        if (filter != null && !filter.isEmpty()) {
-//            query.where("name", EQ, filter.toLowerCase()); // Используем EQ для точного совпадения
-//        }
-
         if (filter != null && !filter.isEmpty()) {
-            query.where("name", LIKE, "%" + filter.toLowerCase() + "%"); // Используем LIKE для частичного совпадения
+            query.where("name", EQ, filter.toLowerCase() + "*"); // Начало name соответсвует filter. Больше pattern в описании.
         }
 
         // Выполняем запрос
