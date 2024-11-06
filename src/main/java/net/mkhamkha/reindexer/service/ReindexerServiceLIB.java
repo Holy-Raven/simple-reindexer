@@ -87,7 +87,7 @@ public class ReindexerServiceLIB {
         Query<Item> query = reindexer.query(collectionName, Item.class);
 
         if (filter != null && !filter.isEmpty()) {
-            query.where("name", EQ, filter.toLowerCase() + "*"); // Начало name соответсвует filter. Больше pattern в описании.
+            query.where("name", EQ, "=" + filter.toLowerCase() + "*"); // Точное вхождение, начало name соответсвует filter. Больше pattern в описании.
         }
 
         // Выполняем запрос
