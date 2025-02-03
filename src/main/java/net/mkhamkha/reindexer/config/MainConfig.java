@@ -2,10 +2,14 @@ package net.mkhamkha.reindexer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import net.mkhamkha.reindexer.component.TomcatErrorReportValve;
 import net.mkhamkha.reindexer.config.property.ReindexerConfig;
 import net.mkhamkha.reindexer.config.property.ReindexerProperty;
 import net.mkhamkha.reindexer.model.Item;
+import org.apache.catalina.valves.ErrorReportValve;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,5 +47,13 @@ public class MainConfig {
         reindexer.openNamespace(config.getNameSpace(), NamespaceOptions.defaultOptions(), Item.class);
 
         return reindexer;
+    }
+
+    @Bean
+    WebServerFactoryCustomizer<TomcatServletWebServerFactory> errorReportValveCustomizer() {
+        return factory -> factory.addContextCustomizers(context -> {
+            ErrorReportValve valve = new TomcatErrorReportValve();
+            context.getParent().getPipeline().addValve(valve);
+        });
     }
 }
